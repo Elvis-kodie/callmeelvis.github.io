@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elvis Kodie - Curriculum Vitae</title>
+  <title>Elvis Kodie - Curriculum Vitae - Web Developer & I.T Tutor</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -163,6 +163,41 @@
       transform: scale(1.05);
     }
 
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        margin-left: 0; /* Remove sidebar margin on small screens */
+        padding: 20px;
+      }
+
+      .side-nav {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .side-nav a {
+        display: inline-block;
+        margin: 8px 10px;
+      }
+
+      header {
+        padding: 20px;
+      }
+
+      .header-left, .header-center, .header-right {
+        flex: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .header-right img {
+        margin: 0 auto;
+      }
+    }
+
     /* Zoom effect */
     .zoom-section {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -209,14 +244,14 @@
 
   <!-- SIDE NAVIGATION -->
   <div class="side-nav">
-    <a href="#personal-info">Personal Info</a>
-    <a href="#career-objective">Career Objective</a>
-    <a href="#education">Education</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#seminars">Seminars</a>
-    <a href="#hobbies">Hobbies</a>
-    <a href="#references">References</a>
+    <a href="#personal-info" aria-label="Navigate to Personal Information section">Personal Info</a>
+    <a href="#career-objective" aria-label="Navigate to Career Objective section">Career Objective</a>
+    <a href="#education" aria-label="Navigate to Education section">Education</a>
+    <a href="#experience" aria-label="Navigate to Experience section">Experience</a>
+    <a href="#skills" aria-label="Navigate to Skills section">Skills</a>
+    <a href="#seminars" aria-label="Navigate to Seminars section">Seminars</a>
+    <a href="#hobbies" aria-label="Navigate to Hobbies section">Hobbies</a>
+    <a href="#references" aria-label="Navigate to References section">References</a>
   </div>
 
   <div class="container">
@@ -244,7 +279,7 @@
 
     <h2 id="education" class="zoom-section">Educational Background</h2>
     <ul>
-      <li><strong>Bachelors’ Degree in Information Technology Education</strong><br>
+      <li><strong>Bachelor’s Degree in Information Technology Education</strong><br>
         2022 - 2025: Akenten Appiah-Menka University of Skills, Training and Entrepreneurial Development.
       </li>
       <li><strong>West Africa Senior School Certificate Examination</strong><br>
@@ -278,11 +313,11 @@
 
     <h2 id="seminars" class="zoom-section">Seminars Attended</h2>
     <ul>
-      <li>Pre - Internship seminar at Aamusted 2024</li>
-      <li>Post Internship seminar at Aamusted 2025</li>
+      <li>Pre-Internship seminar at Aamusted 2024</li>
+      <li>Post-Internship seminar at Aamusted 2025</li>
     </ul>
 
-    <h2 id="hobbies" class="zoom-section">Hobbies and Interest</h2>
+    <h2 id="hobbies" class="zoom-section">Hobbies and Interests</h2>
     <ul>
       <li>Teaching Computing</li>
       <li>Music Production</li>
@@ -295,7 +330,7 @@
       <li><strong>Mr. Kumi</strong><br>Teacher, Abuakwa D/A Basic School<br>0240672415</li>
     </ul>
 
-    <a href="home.html" class="back-link">&larr; Back to Home</a>
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
   </div>
 
 </body>

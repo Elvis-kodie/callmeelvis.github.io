@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Internship Record Book</title>
+  <title>Elvis Kodie - Lesson Notes - Web Developer & I.T Tutor</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -45,37 +45,39 @@
 
     .file-link {
       display: inline-block;
-      background: #0059b3;
-      color: white;
+      background: #38bdf8; /* Aligned with index.html */
+      color: #0f172a; /* Blue-black text for contrast */
       text-decoration: none;
       padding: 14px 30px;
       border-radius: 50px;
       font-size: 1rem;
       font-weight: bold;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 89, 179, 0.2);
+      box-shadow: 0 4px 10px rgba(56, 189, 248, 0.2);
     }
 
     .file-link:hover {
-      background-color: #004080;
+      background-color: #1a91c8; /* Darker accent for hover */
+      color: #ffffff;
       transform: translateY(-2px);
     }
 
     .back-link {
       display: inline-block;
-      background-color: #f0f0f0;
-      color: #004080;
+      background-color: #38bdf8; /* Aligned with index.html */
+      color: #0f172a; /* Blue-black text */
       text-decoration: none;
       padding: 12px 25px;
       border-radius: 50px;
       margin-top: 25px;
       font-weight: bold;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 10px rgba(56, 189, 248, 0.2);
     }
 
     .back-link:hover {
-      background-color: #dcdcdc;
+      background-color: #1a91c8; /* Darker accent for hover */
+      color: #ffffff;
       transform: translateY(-1px);
     }
 
@@ -88,30 +90,54 @@
       border-top: 1px solid #ddd;
       margin-top: 60px;
     }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 20px 15px;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .container {
+        padding: 20px 15px;
+        margin: 20px auto;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .file-link, .back-link {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>LESSON NOTES</h1>
+    <h1>Lesson Notes</h1>
   </header>
 
   <div class="container">
     <h2>Available Document</h2>
 
     <!-- Link to your uploaded PDF -->
-    <a href="Lesson notes.pdf" class="file-link" target="_blank">
-      View Lesson Notes pictures (PDF)
+    <a href="Lesson notes.pdf" class="file-link" target="_blank" aria-label="View Lesson Notes PDF">
+      View Lesson Notes (PDF)
     </a>
 
     <!-- Back to Home button -->
     <br><br>
-    <a href="home.html" class="back-link">Back to Home</a>
+    <a href="index.html" class="back-link" aria-label="Return to homepage">Back to Home</a>
 
   </div>
 
   <footer>
-    &copy; 2025 Internship Portal - Department of Information Technology Education
+    &copy; 2025 Elvis Kodie - Department of Information Technology Education
   </footer>
 
 </body>
