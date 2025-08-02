@@ -101,14 +101,14 @@
       margin-bottom: 10px;
     }
 
-   h1.university {
-  font-size: 22px;
-  font-weight: 700;
-  color: #002855;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
-  font-family: 'Times New Roman', Times, serif;
+    h1.university {
+      font-size: 22px;
+      font-weight: 700;
+      color: #002855;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
     }
 
     .faculty-subtext {
@@ -162,7 +162,7 @@
     }
 
     .references {
-      padding-left: 20px;
+      padding: 20px;
     }
 
     .references li {
@@ -177,33 +177,19 @@
       gap: 10px;
     }
 
-    .bottom-buttons button {
-      padding: 10px 16px;
-      background-color: #004080;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .bottom-buttons button:hover {
-      background-color: #003366;
-    }
-
+    .bottom-buttons button,
     .btn-bottom {
       padding: 10px 16px;
       background-color: #004080;
       color: white;
       border: none;
       border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
       cursor: pointer;
-      display: inline-block;
+      font-weight: bold;
       transition: background-color 0.3s ease;
     }
 
+    .bottom-buttons button:hover,
     .btn-bottom:hover {
       background-color: #003366;
     }
@@ -217,6 +203,47 @@
     section.zoomed {
       background-color: #f0f8ff;
       transform: scale(1.03);
+    }
+
+    .loading-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 5px;
+      z-index: 1000;
+      display: none;
+    }
+
+    .image-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #004080;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .main-section {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+      }
+
+      .content {
+        padding: 20px;
+      }
     }
   </style>
 </head>
@@ -303,12 +330,15 @@
 
       <div class="bottom-buttons">
         <button onclick="window.location.href='index.html'">← Back to Home</button>
-        <a href="Teaching_Philosophy_by_Elvis_Kodie.pdf" class="btn-bottom" download>Download PDF</a>
+        <button class="btn-bottom" onclick="displayMergedImage()">Download</button>
       </div>
 
+      <div class="image-container" id="imageContainer"></div>
     </div>
   </div>
 </div>
+
+<div class="loading-message" id="loadingMessage">Merging images, please wait...</div>
 
 <script>
   function zoomTo(id) {
@@ -322,6 +352,73 @@
     setTimeout(() => {
       target.classList.remove("zoomed");
     }, 1000);
+  }
+
+  // Display merged image functionality with scroll and error handling
+  function displayMergedImage() {
+    // Scroll to the bottom-buttons div
+    const bottomButtons = document.querySelector('.bottom-buttons');
+    bottomButtons.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Show loading message
+    const loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'block';
+
+    // Update these paths to match your image files in the GitHub Pages repository
+    // Example: 'images/IMG-20220201-WA001.jpg' if in a subfolder, or
+    // 'https://<username>.github.io/<repository>/IMG-20220201-WA001.jpg' for full URLs
+    // Replace with the exact filenames or paths of your images
+    const images = [
+      'IMG-20220201-WA001.jpg',
+      'IMG-20220201-WA002.jpg',
+      'IMG-20220201-WA003.jpg'
+    ];
+
+    // Create a canvas to merge images
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    let loadedImages = 0;
+    let imageObjects = [];
+
+    // Load all images
+    images.forEach((url, index) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous'; // Handle cross-origin images if needed
+      img.onload = () => {
+        imageObjects[index] = img;
+        loadedImages++;
+        if (loadedImages === images.length) {
+          // Set canvas dimensions (stack vertically, use max width)
+          let maxWidth = Math.max(...imageObjects.map(img => img.width));
+          let totalHeight = imageObjects.reduce((sum, img) => sum + img.height, 0);
+          canvas.width = maxWidth;
+          canvas.height = totalHeight;
+
+          // Draw images on canvas
+          let yOffset = 0;
+          imageObjects.forEach(img => {
+            ctx.drawImage(img, 0, yOffset, img.width, img.height);
+            yOffset += img.height;
+          });
+
+          // Display the merged image in the image container
+          const imageContainer = document.getElementById('imageContainer');
+          imageContainer.innerHTML = ''; // Clear previous content
+          const mergedImg = document.createElement('img');
+          mergedImg.src = canvas.toDataURL('image/jpeg', 1.0);
+          imageContainer.appendChild(mergedImg);
+
+          // Hide loading message
+          loadingMessage.style.display = 'none';
+        }
+      };
+      img.onerror = () => {
+        console.error(`Failed to load image: ${url}`);
+        alert(`Error: Failed to load image "${url}". Please check if the file exists and is accessible in your GitHub Pages repository.`);
+        loadingMessage.style.display = 'none';
+      };
+      img.src = url;
+    });
   }
 </script>
 
