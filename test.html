@@ -78,6 +78,45 @@
       background-color: #e0eaff;
     }
 
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .navigation {
+      margin-top: 10px;
+    }
+
+    .navigation button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      background-color: #0059b3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .navigation button:hover {
+      background-color: #003f80;
+    }
+
     footer {
       text-align: center;
       padding: 25px 10px;
@@ -101,6 +140,10 @@
         width: 100%;
         margin: 10px 0;
       }
+
+      .slideshow {
+        height: 300px;
+      }
     }
   </style>
 </head>
@@ -111,11 +154,25 @@
   </header>
 
   <div class="container">
-    <h2>Available Document</h2>
+    <h2>Available Images</h2>
 
-    <a href="DocScanner_30-Jul-2025_03-15_PM.pdf" class="file-link" target="_blank">
-      📄 View Test and Assignment (PDF)
-    </a>
+    <div class="slideshow">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-0.jpg" class="slide active">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-1.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-3.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-3.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-4.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-5.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-6.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-7.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-8.jpg" class="slide">
+      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-9.jpg" class="slide">
+    </div>
+
+    <div class="navigation">
+      <button id="prev">Previous</button>
+      <button id="next">Next</button>
+    </div>
 
     <a href="index.html" class="back-link">← Back to Home</a>
   </div>
@@ -123,6 +180,28 @@
   <footer>
     &copy; 2025 Internship Portal · Department of Information Technology Education
   </footer>
+
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[index].classList.add('active');
+    }
+
+    document.getElementById('next').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    });
+
+    showSlide(currentIndex);
+  </script>
 
 </body>
 </html>
