@@ -52,7 +52,7 @@
       transform: scale(1.1);
     }
 
-    .download-btn {
+    .inspire-btn {
       padding: 10px 20px;
       background-color: #ffffff;
       color: #1e3a8a;
@@ -65,7 +65,7 @@
       text-decoration: none;
     }
 
-    .download-btn:hover {
+    .inspire-btn:hover {
       background-color: #ffffff;
       color: #122768;
       transform: scale(1.08);
@@ -131,7 +131,7 @@
     }
 
     @media print {
-      .back-link, .download-btn, .side-nav {
+      .back-link, .inspire-btn, .side-nav {
         display: none;
       }
     }
@@ -209,6 +209,54 @@
       z-index: 10;
       position: relative;
     }
+
+    /* Popup styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .popup-content {
+      margin-bottom: 20px;
+    }
+
+    .popup-content p {
+      font-size: 18px;
+      font-style: italic;
+      color: #1e3a8a;
+      margin: 0;
+    }
+
+    .close-btn {
+      padding: 8px 16px;
+      background-color: #1e3a8a;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .close-btn:hover {
+      background-color: #122768;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
   </style>
 
   <script>
@@ -225,6 +273,38 @@
           }
         });
       });
+
+      // Quotes for the popup
+      const quotes = [
+        "Education is the most powerful weapon which you can use to change the world. – Nelson Mandela",
+        "The beautiful thing about learning is that no one can take it away from you. – B.B. King",
+        "Technology is just a tool. In terms of getting the kids working together and motivating them, the teacher is the most important. – Bill Gates",
+        "The art of teaching is the art of assisting discovery. – Mark Van Doren",
+        "Learning is not attained by chance, it must be sought for with ardor and attended to with diligence. – Abigail Adams"
+      ];
+
+      // Show inspirational quote
+      const inspireBtn = document.getElementById('inspireBtn');
+      const popup = document.getElementById('quotePopup');
+      const quoteText = document.getElementById('quoteText');
+      const closeBtn = document.getElementById('closeBtn');
+
+      inspireBtn.addEventListener('click', () => {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteText.textContent = randomQuote;
+        popup.style.display = 'block';
+      });
+
+      closeBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+      });
+
+      // Close popup when clicking outside
+      window.addEventListener('click', (event) => {
+        if (event.target === popup) {
+          popup.style.display = 'none';
+        }
+      });
     });
   </script>
 </head>
@@ -232,7 +312,7 @@
 
   <header>
     <div class="header-left">
-      <a href="ELVIS_Curriculum_Vitae.pdf" class="download-btn" download>Download PDF</a>
+      <button id="inspireBtn" class="inspire-btn">Get Inspired</button>
     </div>
     <div class="header-center">
       <h1>CURRICULUM VITAE</h1>
@@ -241,6 +321,14 @@
       <img src="photo_1_2025-07-28_14-32-58.jpg" alt="Elvis Kodie" class="profile-pic-header">
     </div>
   </header>
+
+  <!-- Popup for inspirational quote -->
+  <div class="popup" id="quotePopup">
+    <div class="popup-content">
+      <p id="quoteText"></p>
+    </div>
+    <button class="close-btn" id="closeBtn">Close</button>
+  </div>
 
   <!-- SIDE NAVIGATION -->
   <div class="side-nav">
