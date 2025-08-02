@@ -47,42 +47,65 @@
       font-size: 1.8rem;
     }
 
-    .file-link,
+    .view-images-btn,
     .back-link {
       display: inline-block;
       padding: 14px 30px;
-      margin: 12px;
-      border-radius: 30px;
+      margin: 12px auto;
+      border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
       cursor: pointer;
     }
 
-    .file-link {
+    .view-images-btn {
       background-color: #0059b3;
       color: white;
+      border: none;
     }
 
-    .file-link:hover {
+    .view-images-btn:hover {
       background-color: #003f80;
     }
 
     .back-link {
-      background-color: #f0f0f0;
+      background-color: #ffffff;
       color: #0059b3;
-      border: 2px solid #cce0ff;
+      border: 2px solid #0059b3;
+      box-shadow: 0 4px 10px rgba(0, 89, 179, 0.2);
     }
 
     .back-link:hover {
-      background-color: #e0eaff;
+      background-color: #0059b3;
+      color: white;
+    }
+
+    /* Modal Slideshow Styles */
+    .slideshow-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
     }
 
     .slideshow {
       position: relative;
-      width: 100%;
-      height: 600px;
+      width: 95%;
+      max-width: 1200px;
+      height: 85vh;
       overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+      background: transparent;
     }
 
     .slide {
@@ -93,27 +116,35 @@
       height: 100%;
       object-fit: contain;
       display: none;
+      transition: transform 0.3s ease;
     }
 
     .slide.active {
       display: block;
     }
 
-    .navigation {
-      margin-top: 10px;
+    .slide:hover {
+      transform: scale(1.1);
     }
 
-    .navigation button {
-      padding: 10px 20px;
+    .navigation {
+      margin-top: 20px;
+    }
+
+    .navigation button,
+    .close-btn {
+      padding: 12px 24px;
       margin: 0 10px;
       background-color: #0059b3;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 30px;
       cursor: pointer;
+      font-size: 1rem;
     }
 
-    .navigation button:hover {
+    .navigation button:hover,
+    .close-btn:hover {
       background-color: #003f80;
     }
 
@@ -136,13 +167,14 @@
         padding: 25px;
       }
 
-      .file-link, .back-link {
+      .back-link, .view-images-btn {
         width: 100%;
-        margin: 10px 0;
+        margin-top: 20px;
       }
 
       .slideshow {
-        height: 300px;
+        width: 90%;
+        height: 60vh;
       }
     }
   </style>
@@ -150,16 +182,21 @@
 <body>
 
   <header>
-    <h1>EXERCISE,TEST AND ASSGNMENT</h1>
+    <h1>EXERCISE, TEST AND ASSIGNMENT</h1>
   </header>
 
   <div class="container">
     <h2>Available Images</h2>
+    <button class="view-images-btn" onclick="openSlideshow()">View Images</button>
+    <br>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
 
+  <!-- Fullscreen Slideshow Modal -->
+  <div class="slideshow-modal" id="slideshowModal">
     <div class="slideshow">
       <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-0.jpg" class="slide active">
       <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-1.jpg" class="slide">
-      <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-3.jpg" class="slide">
       <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-3.jpg" class="slide">
       <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-4.jpg" class="slide">
       <img src="9a5eb5bd-f65b-4896-b29f-6c9d5f6fc015-5.jpg" class="slide">
@@ -170,11 +207,10 @@
     </div>
 
     <div class="navigation">
-      <button id="prev">Previous</button>
-      <button id="next">Next</button>
+      <button onclick="prevSlide()">Previous</button>
+      <button onclick="nextSlide()">Next</button>
+      <button class="close-btn" onclick="closeSlideshow()">Close</button>
     </div>
-
-    <a href="index.html" class="back-link">← Back to Home</a>
   </div>
 
   <footer>
@@ -184,21 +220,31 @@
   <script>
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
+    const modal = document.getElementById('slideshowModal');
 
     function showSlide(index) {
       slides.forEach(slide => slide.classList.remove('active'));
       slides[index].classList.add('active');
     }
 
-    document.getElementById('next').addEventListener('click', () => {
+    function nextSlide() {
       currentIndex = (currentIndex + 1) % slides.length;
       showSlide(currentIndex);
-    });
+    }
 
-    document.getElementById('prev').addEventListener('click', () => {
+    function prevSlide() {
       currentIndex = (currentIndex - 1 + slides.length) % slides.length;
       showSlide(currentIndex);
-    });
+    }
+
+    function openSlideshow() {
+      modal.style.display = 'flex';
+      showSlide(currentIndex);
+    }
+
+    function closeSlideshow() {
+      modal.style.display = 'none';
+    }
 
     showSlide(currentIndex);
   </script>
