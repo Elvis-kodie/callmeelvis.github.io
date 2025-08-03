@@ -95,12 +95,14 @@
     .slide {
       display: none;
       width: 100%;
+      max-width: 400px; /* Reduced width */
       height: auto;
-      max-width: 600px;
+      aspect-ratio: 1 / 1.414; /* A4 aspect ratio (210mm x 297mm) */
       margin: 0 auto;
       background-color: white; /* White background for images to stand out */
       padding: 10px;
       border-radius: 4px;
+      object-fit: contain; /* Ensure image fits within A4 ratio */
     }
 
     .slide.active {
@@ -127,6 +129,50 @@
     .next {
       right: 10px;
     }
+
+    .slide-selector {
+      margin: 10px auto;
+      text-align: center;
+      display: none;
+    }
+
+    .slide-selector label {
+      color: #004080;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .slide-selector select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #004080;
+      background-color: #ffffff;
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slide-selector select:hover {
+      border-color: #0059b3;
+    }
+
+    .slide-selector select:focus {
+      outline: none;
+      border-color: #0059b3;
+      box-shadow: 0 0 5px rgba(0, 64, 128, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        max-width: 250px; /* Further reduced for mobile */
+      }
+
+      .slide-selector select {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -136,7 +182,7 @@
   </header>
 
   <div class="container">
-    <h2>Internship Record Book Images</h2>
+    <h2>Internship Record Book Documents</h2>
 
     <!-- Button to view slideshow -->
     <button class="file-link" onclick="showSlideshow()">View Record Book Images</button>
@@ -175,6 +221,41 @@
       <button class="next" onclick="changeSlide(1)">&#10095;</button>
     </div>
 
+    <!-- Slide selector -->
+    <div class="slide-selector" id="slideSelector" style="display: none;">
+      <label for="slideNumber">Select Slide:</label>
+      <select id="slideNumber" onchange="jumpToSlide(this.value)">
+        <option value="0">Slide 1</option>
+        <option value="1">Slide 2</option>
+        <option value="2">Slide 3</option>
+        <option value="3">Slide 4</option>
+        <option value="4">Slide 5</option>
+        <option value="5">Slide 6</option>
+        <option value="6">Slide 7</option>
+        <option value="7">Slide 8</option>
+        <option value="8">Slide 9</option>
+        <option value="9">Slide 10</option>
+        <option value="10">Slide 11</option>
+        <option value="11">Slide 12</option>
+        <option value="12">Slide 13</option>
+        <option value="13">Slide 14</option>
+        <option value="14">Slide 15</option>
+        <option value="15">Slide 16</option>
+        <option value="16">Slide 17</option>
+        <option value="17">Slide 18</option>
+        <option value="18">Slide 19</option>
+        <option value="19">Slide 20</option>
+        <option value="20">Slide 21</option>
+        <option value="21">Slide 22</option>
+        <option value="22">Slide 23</option>
+        <option value="23">Slide 24</option>
+        <option value="24">Slide 25</option>
+        <option value="25">Slide 26</option>
+        <option value="26">Slide 27</option>
+        <option value="27">Slide 28</option>
+      </select>
+    </div>
+
     <!-- Back to Home and Close buttons -->
     <div class="button-container">
       <a href="index.html" class="back-link">← Back to Home</a>
@@ -191,20 +272,26 @@
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const slideshow = document.getElementById('slideshow');
+    const slideSelector = document.getElementById('slideSelector');
+    const slideNumberSelect = document.getElementById('slideNumber');
 
     function showSlideshow() {
       slideshow.style.display = 'block';
+      slideSelector.style.display = 'block';
       showSlide(currentSlide);
+      slideNumberSelect.value = currentSlide; // Sync dropdown with current slide
     }
 
     function closeSlideshow() {
       slideshow.style.display = 'none';
+      slideSelector.style.display = 'none';
     }
 
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
       });
+      slideNumberSelect.value = index; // Update dropdown when slide changes
     }
 
     function changeSlide(direction) {
@@ -215,6 +302,13 @@
         currentSlide = 0;
       }
       showSlide(currentSlide);
+    }
+
+    function jumpToSlide(slideNumber) {
+      currentSlide = parseInt(slideNumber);
+      if (currentSlide >= 0 && currentSlide < slides.length) {
+        showSlide(currentSlide);
+      }
     }
   </script>
 

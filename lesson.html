@@ -45,8 +45,8 @@
 
     .file-link {
       display: inline-block;
-      background: #38bdf8; /* Aligned with index.html */
-      color: #0f172a; /* Blue-black text for contrast */
+      background: #38bdf8;
+      color: #0f172a;
       text-decoration: none;
       padding: 14px 30px;
       border-radius: 50px;
@@ -57,26 +57,31 @@
     }
 
     .file-link:hover {
-      background-color: #1a91c8; /* Darker accent for hover */
+      background-color: #1a91c8;
       color: #ffffff;
       transform: translateY(-2px);
     }
 
-    .back-link {
+    .button-container {
+      text-align: center;
+      margin: 25px 0;
+    }
+
+    .back-link, .close-link {
       display: inline-block;
-      background-color: #38bdf8; /* Aligned with index.html */
-      color: #0f172a; /* Blue-black text */
+      background-color: #38bdf8;
+      color: #0f172a;
       text-decoration: none;
       padding: 12px 25px;
       border-radius: 50px;
-      margin-top: 25px;
+      margin: 0 10px;
       font-weight: bold;
       transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(56, 189, 248, 0.2);
     }
 
-    .back-link:hover {
-      background-color: #1a91c8; /* Darker accent for hover */
+    .back-link:hover, .close-link:hover {
+      background-color: #1a91c8;
       color: #ffffff;
       transform: translateY(-1px);
     }
@@ -89,6 +94,87 @@
       background-color: #f9f9f9;
       border-top: 1px solid #ddd;
       margin-top: 60px;
+    }
+
+    .slideshow-container {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      display: none;
+      text-align: center;
+      background-color: rgba(0, 51, 102, 0.7); /* Blue tinted background */
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 400px; /* Reduced width */
+      height: auto;
+      aspect-ratio: 1 / 1.414; /* A4 aspect ratio (210mm x 297mm) */
+      margin: 0 auto;
+      background-color: white; /* White background for images to stand out */
+      padding: 10px;
+      border-radius: 4px;
+      object-fit: contain; /* Ensure image fits within A4 ratio */
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .slide-selector {
+      margin: 10px auto;
+      text-align: center;
+    }
+
+    .slide-selector label {
+      color: #003366;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .slide-selector select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #38bdf8;
+      background-color: #ffffff;
+      color: #0f172a;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slide-selector select:hover {
+      border-color: #1a91c8;
+    }
+
+    .slide-selector select:focus {
+      outline: none;
+      border-color: #1a91c8;
+      box-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -109,9 +195,18 @@
         font-size: 1.5rem;
       }
 
-      .file-link, .back-link {
+      .file-link, .back-link, .close-link {
         padding: 10px 20px;
         font-size: 0.9rem;
+      }
+
+      .slide {
+        max-width: 250px; /* Further reduced for mobile */
+      }
+
+      .slide-selector select {
+        font-size: 0.9rem;
+        padding: 6px 10px;
       }
     }
   </style>
@@ -123,22 +218,151 @@
   </header>
 
   <div class="container">
-    <h2>Available Document</h2>
+    <h2>Lesson Notes Documents</h2>
 
+    <!-- Button to view slideshow -->
+    <button class="file-link" onclick="showSlideshow()" aria-label="View Lesson Notes Slideshow">View Lesson Notes Slideshow</button>
 
-    <a href="Lesson_Notes.pdf" class="file-link" target="_blank" aria-label="View Lesson Notes PDF">
-      View Lesson Notes (PDF)
-    </a>
+    <!-- Slideshow -->
+    <div class="slideshow-container" id="slideshow">
+      <img class="slide" src="Lesson_Notes_compressed-images-0.jpg" alt="Slide 0">
+      <img class="slide" src="Lesson_Notes_compressed-images-1.jpg" alt="Slide 1">
+      <img class="slide" src="Lesson_Notes_compressed-images-2.jpg" alt="Slide 2">
+      <img class="slide" src="Lesson_Notes_compressed-images-3.jpg" alt="Slide 3">
+      <img class="slide" src="Lesson_Notes_compressed-images-4.jpg" alt="Slide 4">
+      <img class="slide" src="Lesson_Notes_compressed-images-5.jpg" alt="Slide 5">
+      <img class="slide" src="Lesson_Notes_compressed-images-6.jpg" alt="Slide 6">
+      <img class="slide" src="Lesson_Notes_compressed-images-7.jpg" alt="Slide 7">
+      <img class="slide" src="Lesson_Notes_compressed-images-8.jpg" alt="Slide 8">
+      <img class="slide" src="Lesson_Notes_compressed-images-9.jpg" alt="Slide 9">
+      <img class="slide" src="Lesson_Notes_compressed-images-10.jpg" alt="Slide 10">
+      <img class="slide" src="Lesson_Notes_compressed-images-11.jpg" alt="Slide 11">
+      <img class="slide" src="Lesson_Notes_compressed-images-12.jpg" alt="Slide 12">
+      <img class="slide" src="Lesson_Notes_compressed-images-13.jpg" alt="Slide 13">
+      <img class="slide" src="Lesson_Notes_compressed-images-14.jpg" alt="Slide 14">
+      <img class="slide" src="Lesson_Notes_compressed-images-15.jpg" alt="Slide 15">
+      <img class="slide" src="Lesson_Notes_compressed-images-16.jpg" alt="Slide 16">
+      <img class="slide" src="Lesson_Notes_compressed-images-17.jpg" alt="Slide 17">
+      <img class="slide" src="Lesson_Notes_compressed-images-18.jpg" alt="Slide 18">
+      <img class="slide" src="Lesson_Notes_compressed-images-19.jpg" alt="Slide 19">
+      <img class="slide" src="Lesson_Notes_compressed-images-20.jpg" alt="Slide 20">
+      <img class="slide" src="Lesson_Notes_compressed-images-21.jpg" alt="Slide 21">
+      <img class="slide" src="Lesson_Notes_compressed-images-22.jpg" alt="Slide 22">
+      <img class="slide" src="Lesson_Notes_compressed-images-23.jpg" alt="Slide 23">
+      <img class="slide" src="Lesson_Notes_compressed-images-24.jpg" alt="Slide 24">
+      <img class="slide" src="Lesson_Notes_compressed-images-25.jpg" alt="Slide 25">
+      <img class="slide" src="Lesson_Notes_compressed-images-26.jpg" alt="Slide 26">
+      <img class="slide" src="Lesson_Notes_compressed-images-27.jpg" alt="Slide 27">
+      <img class="slide" src="Lesson_Notes_compressed-images-28.jpg" alt="Slide 28">
+      <img class="slide" src="Lesson_Notes_compressed-images-29.jpg" alt="Slide 29">
+      <img class="slide" src="Lesson_Notes_compressed-images-30.jpg" alt="Slide 30">
+      <img class="slide" src="Lesson_Notes_compressed-images-31.jpg" alt="Slide 31">
+      <img class="slide" src="Lesson_Notes_compressed-images-32.jpg" alt="Slide 32">
+      <img class="slide" src="Lesson_Notes_compressed-images-33.jpg" alt="Slide 33">
+      <img class="slide" src="Lesson_Notes_compressed-images-34.jpg" alt="Slide 34">
+      <img class="slide" src="Lesson_Notes_compressed-images-35.jpg" alt="Slide 35">
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
 
-    <!-- Back to Home button -->
-    <br><br>
-    <a href="index.html" class="back-link" aria-label="Return to homepage">Back to Home</a>
+    <!-- Slide selector -->
+    <div class="slide-selector" id="slideSelector" style="display: none;">
+      <label for="slideNumber">Select Slide:</label>
+      <select id="slideNumber" onchange="jumpToSlide(this.value)">
+        <option value="0">Slide 0</option>
+        <option value="1">Slide 1</option>
+        <option value="2">Slide 2</option>
+        <option value="3">Slide 3</option>
+        <option value="4">Slide 4</option>
+        <option value="5">Slide 5</option>
+        <option value="6">Slide 6</option>
+        <option value="7">Slide 7</option>
+        <option value="8">Slide 8</option>
+        <option value="9">Slide 9</option>
+        <option value="10">Slide 10</option>
+        <option value="11">Slide 11</option>
+        <option value="12">Slide 12</option>
+        <option value="13">Slide 13</option>
+        <option value="14">Slide 14</option>
+        <option value="15">Slide 15</option>
+        <option value="16">Slide 16</option>
+        <option value="17">Slide 17</option>
+        <option value="18">Slide 18</option>
+        <option value="19">Slide 19</option>
+        <option value="20">Slide 20</option>
+        <option value="21">Slide 21</option>
+        <option value="22">Slide 22</option>
+        <option value="23">Slide 23</option>
+        <option value="24">Slide 24</option>
+        <option value="25">Slide 25</option>
+        <option value="26">Slide 26</option>
+        <option value="27">Slide 27</option>
+        <option value="28">Slide 28</option>
+        <option value="29">Slide 29</option>
+        <option value="30">Slide 30</option>
+        <option value="31">Slide 31</option>
+        <option value="32">Slide 32</option>
+        <option value="33">Slide 33</option>
+        <option value="34">Slide 34</option>
+        <option value="35">Slide 35</option>
+      </select>
+    </div>
+
+    <!-- Back to Home and Close buttons -->
+    <div class="button-container">
+      <a href="index.html" class="back-link" aria-label="Return to homepage">Back to Home</a>
+      <a href="#" class="close-link" onclick="closeSlideshow()" aria-label="Close Slideshow">Close Slideshow</a>
+    </div>
 
   </div>
 
   <footer>
     &copy; 2025 Elvis Kodie - Department of Information Technology Education
   </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideshow = document.getElementById('slideshow');
+    const slideSelector = document.getElementById('slideSelector');
+    const slideNumberSelect = document.getElementById('slideNumber');
+
+    function showSlideshow() {
+      slideshow.style.display = 'block';
+      slideSelector.style.display = 'block';
+      showSlide(currentSlide);
+      slideNumberSelect.value = currentSlide; // Sync dropdown with current slide
+    }
+
+    function closeSlideshow() {
+      slideshow.style.display = 'none';
+      slideSelector.style.display = 'none';
+    }
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      slideNumberSelect.value = index; // Update dropdown when slide changes
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+      } else if (currentSlide >= slides.length) {
+        currentSlide = 0;
+      }
+      showSlide(currentSlide);
+    }
+
+    function jumpToSlide(slideNumber) {
+      currentSlide = parseInt(slideNumber);
+      if (currentSlide >= 0 && currentSlide < slides.length) {
+        showSlide(currentSlide);
+      }
+    }
+  </script>
 
 </body>
 </html>
