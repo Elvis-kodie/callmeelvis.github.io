@@ -266,13 +266,6 @@
       object-fit: cover;
     }
 
-    .chatbot-header h3 {
-      color: white;
-      margin: 0;
-      font-size: 16px;
-      font-weight: bold;
-    }
-
     .chatbot-messages {
       flex: 1;
       padding: 10px;
@@ -306,6 +299,7 @@
       display: flex;
       padding: 10px;
       background-color: #0f172a;
+      gap: 5px;
     }
 
     .chatbot-input input {
@@ -330,6 +324,23 @@
     }
 
     .chatbot-input button:hover {
+      background-color: #60a5fa;
+    }
+
+    .chatbot-input .voice-btn {
+      background-color: #38bdf8;
+      border-radius: 5px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chatbot-input .voice-btn.listening {
+      background-color: #ff4444;
+    }
+
+    .chatbot-input .voice-btn:hover {
       background-color: #60a5fa;
     }
 
@@ -364,7 +375,6 @@
   </style>
 </head>
 <body>
-
   <div class="portfolio-label">Portfolio</div>
 
   <div class="container">
@@ -403,13 +413,10 @@
 
     <div class="right-section">
       <h1 class="profile-name">ELVIS KODIE</h1>
-
       <div class="hexagon">
         <img src="photo_1_2025-07-28_14-32-58.jpg" alt="Profile" />
       </div>
-
       <div class="title-description">WEB DEVELOPER & I.T TUTOR</div>
-
       <div class="socials">
         <a href="https://www.facebook.com/share/1Ask91tHLn/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
         <a href="https://x.com/elviskodie?s=21" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -418,7 +425,6 @@
         <a href="mailto:kodielvis63@gmail.com"><i class="fas fa-envelope"></i></a>
         <a href="tel:+233550019465"><i class="fas fa-phone"></i></a>
       </div>
-
       <a href="About.html" class="about-btn">About Me</a>
     </div>
   </div>
@@ -433,10 +439,13 @@
         <h3>AI Assistant</h3>
       </div>
       <div class="chatbot-messages" id="chatbotMessages">
-        <div class="bot-message">Hello! I'm your AI assistant. Ask me about Elvis's portfolio, skills, teaching experience, or anything from his e-portfolio! I'll connect you to Elvis if I can't help.</div>
+        <div class="bot-message">Hello! I'm your AI assistant. Ask me about Elvis's portfolio, skills, teaching experience, or anything from his e-portfolio! You can type or use the microphone to speak. I'll connect you to Elvis if I can't help.</div>
       </div>
       <div class="chatbot-input">
         <input type="text" id="chatbotInput" placeholder="Type your message..." />
+        <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecognition()">
+          <i class="fas fa-microphone"></i>
+        </button>
         <button onclick="sendMessage()">Send</button>
       </div>
     </div>
@@ -448,23 +457,23 @@
       chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    function sendMessage() {
+    function sendMessage(messageText = null) {
       const input = document.getElementById('chatbotInput');
       const messages = document.getElementById('chatbotMessages');
-      const messageText = input.value.trim();
+      const text = messageText || input.value.trim();
 
-      if (messageText === '') return;
+      if (text === '') return;
 
       // Add user message
       const userMessage = document.createElement('div');
       userMessage.className = 'message user-message';
-      userMessage.textContent = messageText;
+      userMessage.textContent = text;
       messages.appendChild(userMessage);
 
       // Simulate bot response
       const botMessage = document.createElement('div');
       botMessage.className = 'message bot-message';
-      botMessage.textContent = getBotResponse(messageText);
+      botMessage.textContent = getBotResponse(text);
       messages.appendChild(botMessage);
 
       // Clear input and scroll to bottom
@@ -522,6 +531,50 @@
         chatbotWindow.style.display = 'none';
       }
     });
+
+    // Voice Recognition
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    let isListening = false;
+
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    function toggleVoiceRecognition() {
+      const voiceBtn = document.getElementById('voiceBtn');
+      if (isListening) {
+        recognition.stop();
+        voiceBtn.classList.remove('listening');
+        isListening = false;
+      } else {
+        recognition.start();
+        voiceBtn.classList.add('listening');
+        isListening = true;
+      }
+    }
+
+    recognition.onresult = function(event) {
+      const transcript = event.results[0][0].transcript;
+      sendMessage(transcript);
+    };
+
+    recognition.onend = function() {
+      const voiceBtn = document.getElementById('voiceBtn');
+      voiceBtn.classList.remove('listening');
+      isListening = false;
+    };
+
+    recognition.onerror = function(event) {
+      const messages = document.getElementById('chatbotMessages');
+      const botMessage = document.createElement('div');
+      botMessage.className = 'message bot-message';
+      botMessage.textContent = 'Sorry, I couldn’t understand your voice input. Please try again or type your message.';
+      messages.appendChild(botMessage);
+      messages.scrollTop = messages.scrollHeight;
+      const voiceBtn = document.getElementById('voiceBtn');
+      voiceBtn.classList.remove('listening');
+      isListening = false;
+    };
   </script>
 </body>
 </html>
