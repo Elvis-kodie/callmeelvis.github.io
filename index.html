@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Professional E-Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     body {
       margin: 0;
@@ -317,17 +318,18 @@
       border-radius: 10px;
       font-size: 14px;
       line-height: 1.4;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      text-shadow: 0 0 5px rgba(56, 189, 248, 0.7);
     }
 
     .user-message {
-      background-color: #38bdf8;
-      color: white;
+      color: #38bdf8;
       align-self: flex-end;
     }
 
     .bot-message {
-      background-color: #ffffff;
-      color: #0f172a;
+      color: #ffffff;
       align-self: flex-start;
     }
 
@@ -416,7 +418,7 @@
 
   <div class="container">
     <div class="left-section">
-      <h2>Content</h2>
+      <h2>CONTENT</h2>
       <a href="philosophy.html">
         <button>Teaching Philosophy</button>
       </a>
@@ -476,7 +478,7 @@
         <h3>AI Assistant</h3>
       </div>
       <div class="chatbot-messages" id="chatbotMessages">
-        <div class="bot-message">Hello! I'm your AI assistant. Ask me about Elvis's portfolio, skills, teaching experience, or anything from his e-portfolio! You can type or use the microphone to speak. I'll respond with text and voice.</div>
+        <!-- Welcome message will be added dynamically -->
       </div>
       <div class="chatbot-input">
         <input type="text" id="chatbotInput" placeholder="Type your message..." />
@@ -494,10 +496,52 @@
       const isOpening = chatbotWindow.style.display !== 'flex';
       chatbotWindow.style.display = isOpening ? 'flex' : 'none';
       if (isOpening) {
-        speakResponse('Please, how may I help you?');
+        // Clear previous messages to avoid duplicates
+        const messages = document.getElementById('chatbotMessages');
+        messages.innerHTML = '';
+        // Start typing effect for welcome message
+        typeMessage(
+          "Hello! I'm Elvis AI assistant. Ask me anything about Elvis's portfolio, skills, teaching experience, or anything from his e-portfolio! You can type or use the microphone to speak. I'll respond with text and voice.",
+          'bot-message'
+        );
+        // Speak the welcome message
+        speakResponse('Hello, I am Elvis AI assist. Ask me anything about Elvis portfolio');
       } else {
         window.speechSynthesis.cancel();
       }
+    }
+
+    function typeMessage(text, messageClass) {
+      const messages = document.getElementById('chatbotMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${messageClass}`;
+      messages.appendChild(messageDiv);
+      let index = 0;
+      let pause = false;
+
+      function type() {
+        if (index < text.length) {
+          // Check if the current character is a period
+          if (text[index] === '.' && !pause) {
+            pause = true; // Set pause flag
+            setTimeout(() => {
+              messageDiv.textContent += text[index];
+              index++;
+              pause = false; // Reset pause flag
+              type(); // Continue typing
+            }, 500); // Pause for 0.5 seconds at periods
+          } else {
+            messageDiv.textContent += text[index];
+            index++;
+            setTimeout(type, 50); // Typing speed (50ms per character)
+          }
+        } else {
+          // Scroll to bottom when typing is complete
+          messages.scrollTop = messages.scrollHeight;
+        }
+      }
+
+      type();
     }
 
     function sendMessage(messageText = null) {
@@ -507,25 +551,18 @@
 
       if (text === '') return;
 
-      // Add user message
-      const userMessage = document.createElement('div');
-      userMessage.className = 'message user-message';
-      userMessage.textContent = text;
-      messages.appendChild(userMessage);
+      // Add user message with typing effect
+      typeMessage(text, 'user-message');
 
-      // Get and display bot response
+      // Get and display bot response with typing effect
       const botResponse = getBotResponse(text);
-      const botMessage = document.createElement('div');
-      botMessage.className = 'message bot-message';
-      botMessage.textContent = botResponse;
-      messages.appendChild(botMessage);
+      typeMessage(botResponse, 'bot-message');
 
       // Speak the bot response
       speakResponse(botResponse);
 
-      // Clear input and scroll to bottom
+      // Clear input
       input.value = '';
-      messages.scrollTop = messages.scrollHeight;
     }
 
     function getBotResponse(message) {
