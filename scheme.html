@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Internship Record Book</title>
+  <title>Examination and Marking Scheme</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -96,6 +96,107 @@
       border-top: 1px solid #ccc;
       margin-top: 70px;
     }
+
+    .slideshow-container {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      display: none;
+      text-align: center;
+      background-color: rgba(0, 64, 128, 0.7);
+      padding: 20px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      animation: borderGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { border-color: #1e3c72; box-shadow: 0 0 5px rgba(30, 60, 114, 0.5); }
+      50% { border-color: #00aaff; box-shadow: 0 0 15px rgba(0, 170, 255, 0.7); }
+      100% { border-color: #1e3c72; box-shadow: 0 0 5px rgba(30, 60, 114, 0.5); }
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 1 / 1.414;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #ffffff, #f0f4f8);
+      padding: 10px;
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .slide-selector {
+      margin: 10px auto;
+      text-align: center;
+      display: none;
+    }
+
+    .slide-selector label {
+      color: #1e3c72;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .slide-selector select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #1e3c72;
+      background-color: #ffffff;
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slide-selector select:hover {
+      border-color: #2a5298;
+    }
+
+    .slide-selector select:focus {
+      outline: none;
+      border-color: #2a5298;
+      box-shadow: 0 0 5px rgba(30, 60, 114, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        max-width: 250px;
+      }
+
+      .slide-selector select {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -105,15 +206,75 @@
   </header>
 
   <div class="container">
-    <h2>Available Documents</h2>
+    <h2>Available Slideshows</h2>
 
     <div class="button-group">
-      <a href="Examination.pdf" class="file-link" target="_blank">
-        View Exams
-      </a>
-      <a href="Marking_Scheme.pdf" class="file-link" target="_blank">
-        View Marking Scheme
-      </a>
+      <button class="file-link" onclick="showSlideshow('exam')">View Examinations</button>
+      <button class="file-link" onclick="showSlideshow('scheme')">View Marking Scheme</button>
+    </div>
+
+    <!-- Examination Slideshow -->
+    <div class="slideshow-container" id="examSlideshow">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-0.jpg" alt="Examination Slide 1">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-1.jpg" alt="Examination Slide 2">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-2.jpg" alt="Examination Slide 3">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-3.jpg" alt="Examination Slide 4">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-4.jpg" alt="Examination Slide 5">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-5.jpg" alt="Examination Slide 6">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-6.jpg" alt="Examination Slide 7">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-7.jpg" alt="Examination Slide 8">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-8.jpg" alt="Examination Slide 9">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-9.jpg" alt="Examination Slide 10">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-10.jpg" alt="Examination Slide 11">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-11.jpg" alt="Examination Slide 12">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-12.jpg" alt="Examination Slide 13">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-13.jpg" alt="Examination Slide 14">
+      <img class="slide exam-slide" src="d2a61ce7-21e2-4ae5-abfb-dbf7e495f073-14.jpg" alt="Examination Slide 15">
+      <button class="prev" onclick="changeSlide('exam', -1)">&#10094;</button>
+      <button class="next" onclick="changeSlide('exam', 1)">&#10095;</button>
+    </div>
+    <div class="slide-selector" id="examSlideSelector" style="display: none;">
+      <label for="examSlideNumber">Select Examination Slide:</label>
+      <select id="examSlideNumber" onchange="jumpToSlide('exam', this.value)">
+        <option value="0">Slide 1</option>
+        <option value="1">Slide 2</option>
+        <option value="2">Slide 3</option>
+        <option value="3">Slide 4</option>
+        <option value="4">Slide 5</option>
+        <option value="5">Slide 6</option>
+        <option value="6">Slide 7</option>
+        <option value="7">Slide 8</option>
+        <option value="8">Slide 9</option>
+        <option value="9">Slide 10</option>
+        <option value="10">Slide 11</option>
+        <option value="11">Slide 12</option>
+        <option value="12">Slide 13</option>
+        <option value="13">Slide 14</option>
+        <option value="14">Slide 15</option>
+      </select>
+    </div>
+
+    <!-- Marking Scheme Slideshow -->
+    <div class="slideshow-container" id="schemeSlideshow">
+      <img class="slide scheme-slide" src="29e50b5b-34e3-416a-82e3-f29f2801d2c9-0.jpg" alt="Marking Scheme Slide 1">
+      <img class="slide scheme-slide" src="29e50b5b-34e3-416a-82e3-f29f2801d2c9-1.jpg" alt="Marking Scheme Slide 2">
+      <img class="slide scheme-slide" src="29e50b5b-34e3-416a-82e3-f29f2801d2c9-2.jpg" alt="Marking Scheme Slide 3">
+      <img class="slide scheme-slide" src="29e50b5b-34e3-416a-82e3-f29f2801d2c9-3.jpg" alt="Marking Scheme Slide 4">
+      <img class="slide scheme-slide" src="29e50b5b-34e3-416a-82e3-f29f2801d2c9-4.jpg" alt="Marking Scheme Slide 5">
+      <img class="slide scheme-slide" src="29e50b5b-34e3-416a-82e3-f29f2801d2c9-5.jpg" alt="Marking Scheme Slide 6">
+      <button class="prev" onclick="changeSlide('scheme', -1)">&#10094;</button>
+      <button class="next" onclick="changeSlide('scheme', 1)">&#10095;</button>
+    </div>
+    <div class="slide-selector" id="schemeSlideSelector" style="display: none;">
+      <label for="schemeSlideNumber">Select Marking Scheme Slide:</label>
+      <select id="schemeSlideNumber" onchange="jumpToSlide('scheme', this.value)">
+        <option value="0">Slide 1</option>
+        <option value="1">Slide 2</option>
+        <option value="2">Slide 3</option>
+        <option value="3">Slide 4</option>
+        <option value="4">Slide 5</option>
+        <option value="5">Slide 6</option>
+      </select>
     </div>
 
     <a href="index.html" class="back-link">Back to Home</a>
@@ -123,5 +284,76 @@
     &copy; 2025 Internship Portal - Department of Information Technology Education
   </footer>
 
+  <script>
+    let examCurrentSlide = 0;
+    let schemeCurrentSlide = 0;
+    const examSlides = document.querySelectorAll('.exam-slide');
+    const schemeSlides = document.querySelectorAll('.scheme-slide');
+    const examSlideshow = document.getElementById('examSlideshow');
+    const schemeSlideshow = document.getElementById('schemeSlideshow');
+    const examSlideSelector = document.getElementById('examSlideSelector');
+    const schemeSlideSelector = document.getElementById('schemeSlideSelector');
+    const examSlideNumberSelect = document.getElementById('examSlideNumber');
+    const schemeSlideNumberSelect = document.getElementById('schemeSlideNumber');
+
+    function showSlideshow(type) {
+      if (type === 'exam') {
+        examSlideshow.style.display = 'block';
+        examSlideSelector.style.display = 'block';
+        schemeSlideshow.style.display = 'none';
+        schemeSlideSelector.style.display = 'none';
+        showSlide('exam', examCurrentSlide);
+        examSlideNumberSelect.value = examCurrentSlide;
+        examSlideshow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (type === 'scheme') {
+        schemeSlideshow.style.display = 'block';
+        schemeSlideSelector.style.display = 'block';
+        examSlideshow.style.display = 'none';
+        examSlideSelector.style.display = 'none';
+        showSlide('scheme', schemeCurrentSlide);
+        schemeSlideNumberSelect.value = schemeCurrentSlide;
+        schemeSlideshow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function showSlide(type, index) {
+      const slides = type === 'exam' ? examSlides : schemeSlides;
+      const slideNumberSelect = type === 'exam' ? examSlideNumberSelect : schemeSlideNumberSelect;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      slideNumberSelect.value = index;
+    }
+
+    function changeSlide(type, direction) {
+      let currentSlide = type === 'exam' ? examCurrentSlide : schemeCurrentSlide;
+      const slides = type === 'exam' ? examSlides : schemeSlides;
+      currentSlide += direction;
+      if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+      } else if (currentSlide >= slides.length) {
+        currentSlide = 0;
+      }
+      if (type === 'exam') {
+        examCurrentSlide = currentSlide;
+      } else {
+        schemeCurrentSlide = currentSlide;
+      }
+      showSlide(type, currentSlide);
+    }
+
+    function jumpToSlide(type, slideNumber) {
+      const currentSlide = parseInt(slideNumber);
+      const slides = type === 'exam' ? examSlides : schemeSlides;
+      if (currentSlide >= 0 && currentSlide < slides.length) {
+        if (type === 'exam') {
+          examCurrentSlide = currentSlide;
+        } else {
+          schemeCurrentSlide = currentSlide;
+        }
+        showSlide(type, currentSlide);
+      }
+    }
+  </script>
 </body>
 </html>

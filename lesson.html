@@ -102,7 +102,7 @@
       margin: 20px auto;
       display: none;
       text-align: center;
-      background-color: rgba(0, 51, 102, 0.7); /* Blue tinted background */
+      background-color: rgba(0, 51, 102, 0.7);
       padding: 20px;
       border-radius: 8px;
     }
@@ -110,14 +110,14 @@
     .slide {
       display: none;
       width: 100%;
-      max-width: 400px; /* Reduced width */
+      max-width: 400px;
       height: auto;
-      aspect-ratio: 1 / 1.414; /* A4 aspect ratio (210mm x 297mm) */
+      aspect-ratio: 1 / 1.414;
       margin: 0 auto;
-      background-color: white; /* White background for images to stand out */
+      background-color: white;
       padding: 10px;
       border-radius: 4px;
-      object-fit: contain; /* Ensure image fits within A4 ratio */
+      object-fit: contain;
     }
 
     .slide.active {
@@ -201,7 +201,7 @@
       }
 
       .slide {
-        max-width: 250px; /* Further reduced for mobile */
+        max-width: 250px;
       }
 
       .slide-selector select {
@@ -214,7 +214,7 @@
 <body>
 
   <header>
-    <h1>Lesson Notes</h1>
+    <h1>LESSON NOTES</h1>
   </header>
 
   <div class="container">
@@ -331,7 +331,8 @@
       slideshow.style.display = 'block';
       slideSelector.style.display = 'block';
       showSlide(currentSlide);
-      slideNumberSelect.value = currentSlide; // Sync dropdown with current slide
+      slideNumberSelect.value = currentSlide;
+      slideshow.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function closeSlideshow() {
@@ -343,7 +344,7 @@
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
       });
-      slideNumberSelect.value = index; // Update dropdown when slide changes
+      slideNumberSelect.value = index;
     }
 
     function changeSlide(direction) {
