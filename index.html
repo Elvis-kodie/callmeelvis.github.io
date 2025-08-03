@@ -13,13 +13,45 @@
       background-color: #0f172a;
       color: white;
       font-weight: bold;
-      overflow-x: hidden;
       animation: backgroundGrow 10s ease-in-out infinite alternate;
+      position: relative;
     }
 
     @keyframes backgroundGrow {
       0% { background-color: #0f172a; }
       100% { background-color: #1e293b; }
+    }
+
+    /* Rain Effect Container */
+    .rain-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .raindrop {
+      position: absolute;
+      width: 2px;
+      height: 20px;
+      background: rgba(56, 189, 248, 0.7);
+      animation: fall 1s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
     }
 
     .container {
@@ -29,6 +61,8 @@
       height: 100vh;
       padding: 0 3%;
       gap: 60px;
+      position: relative;
+      z-index: 1;
     }
 
     .left-section {
@@ -207,6 +241,7 @@
       font-size: 20px;
       font-weight: bold;
       animation: glowPulse 2s infinite ease-in-out;
+      z-index: 2;
     }
 
     /* Chatbot Styles */
@@ -248,6 +283,7 @@
       margin-top: 10px;
       overflow: hidden;
       animation: growContent 0.5s ease-in-out;
+      z-index: 2;
     }
 
     .chatbot-header {
@@ -375,6 +411,7 @@
   </style>
 </head>
 <body>
+  <div class="rain-container" id="rainContainer"></div>
   <div class="portfolio-label">Portfolio</div>
 
   <div class="container">
@@ -439,7 +476,7 @@
         <h3>AI Assistant</h3>
       </div>
       <div class="chatbot-messages" id="chatbotMessages">
-        <div class="bot-message">Hello! I'm your AI assistant. Ask me about Elvis's portfolio, skills, teaching experience, or anything from his e-portfolio! You can type or use the microphone to speak. I'll connect you to Elvis if I can't help.</div>
+        <div class="bot-message">Hello! I'm your AI assistant. Ask me about Elvis's portfolio, skills, teaching experience, or anything from his e-portfolio! You can type or use the microphone to speak. I'll respond with text and voice.</div>
       </div>
       <div class="chatbot-input">
         <input type="text" id="chatbotInput" placeholder="Type your message..." />
@@ -454,7 +491,13 @@
   <script>
     function toggleChatbot() {
       const chatbotWindow = document.getElementById('chatbotWindow');
-      chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+      const isOpening = chatbotWindow.style.display !== 'flex';
+      chatbotWindow.style.display = isOpening ? 'flex' : 'none';
+      if (isOpening) {
+        speakResponse('Please, how may I help you?');
+      } else {
+        window.speechSynthesis.cancel();
+      }
     }
 
     function sendMessage(messageText = null) {
@@ -470,11 +513,15 @@
       userMessage.textContent = text;
       messages.appendChild(userMessage);
 
-      // Simulate bot response
+      // Get and display bot response
+      const botResponse = getBotResponse(text);
       const botMessage = document.createElement('div');
       botMessage.className = 'message bot-message';
-      botMessage.textContent = getBotResponse(text);
+      botMessage.textContent = botResponse;
       messages.appendChild(botMessage);
+
+      // Speak the bot response
+      speakResponse(botResponse);
 
       // Clear input and scroll to bottom
       input.value = '';
@@ -514,6 +561,15 @@
       }
     }
 
+    function speakResponse(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.volume = 1;
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
     // Allow sending message with Enter key
     document.getElementById('chatbotInput').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
@@ -521,7 +577,7 @@
       }
     });
 
-    // Close chatbot when clicking outside
+    // Close chatbot and stop audio when clicking outside
     document.addEventListener('click', function(event) {
       const chatbotWindow = document.getElementById('chatbotWindow');
       const chatbotToggle = document.querySelector('.chatbot-toggle');
@@ -529,6 +585,7 @@
 
       if (!isClickInsideChatbot && chatbotWindow.style.display === 'flex') {
         chatbotWindow.style.display = 'none';
+        window.speechSynthesis.cancel();
       }
     });
 
@@ -570,11 +627,36 @@
       botMessage.className = 'message bot-message';
       botMessage.textContent = 'Sorry, I couldn’t understand your voice input. Please try again or type your message.';
       messages.appendChild(botMessage);
+      speakResponse(botMessage.textContent);
       messages.scrollTop = messages.scrollHeight;
       const voiceBtn = document.getElementById('voiceBtn');
       voiceBtn.classList.remove('listening');
       isListening = false;
     };
+
+    // Rain Effect
+    function createRain() {
+      const rainContainer = document.getElementById('rainContainer');
+      const raindrop = document.createElement('div');
+      raindrop.className = 'raindrop';
+      raindrop.style.left = `${Math.random() * window.innerWidth}px`;
+      raindrop.style.animationDuration = `${0.8 + Math.random() * 0.4}s`;
+      rainContainer.appendChild(raindrop);
+
+      // Remove raindrop after animation
+      setTimeout(() => {
+        raindrop.remove();
+      }, 1000);
+    }
+
+    // Trigger rain effect every 5 seconds
+    function startRain() {
+      for (let i = 0; i < 10; i++) {
+        setTimeout(createRain, Math.random() * 500);
+      }
+    }
+    setInterval(startRain, 5000);
+    startRain();
   </script>
 </body>
 </html>
