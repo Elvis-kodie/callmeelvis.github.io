@@ -209,6 +209,130 @@
       animation: glowPulse 2s infinite ease-in-out;
     }
 
+    /* Chatbot Styles */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chatbot-toggle {
+      background-color: #38bdf8;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px #38bdf8;
+      transition: all 0.3s ease;
+      animation: bounce 2s infinite;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #38bdf8;
+    }
+
+    .chatbot-window {
+      display: none;
+      width: 300px;
+      height: 400px;
+      background-color: #1e293b;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #38bdf8;
+      flex-direction: column;
+      margin-top: 10px;
+      overflow: hidden;
+      animation: growContent 0.5s ease-in-out;
+    }
+
+    .chatbot-header {
+      background-color: #38bdf8;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chatbot-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+      object-fit: cover;
+    }
+
+    .chatbot-header h3 {
+      color: white;
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .user-message {
+      background-color: #38bdf8;
+      color: white;
+      align-self: flex-end;
+    }
+
+    .bot-message {
+      background-color: #ffffff;
+      color: #0f172a;
+      align-self: flex-start;
+    }
+
+    .chatbot-input {
+      display: flex;
+      padding: 10px;
+      background-color: #0f172a;
+    }
+
+    .chatbot-input input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      background-color: #ffffff;
+      color: #0f172a;
+      font-size: 14px;
+    }
+
+    .chatbot-input button {
+      background-color: #38bdf8;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 0 5px 5px 0;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-input button:hover {
+      background-color: #60a5fa;
+    }
+
     @media screen and (max-width: 768px) {
       .container {
         flex-direction: row;
@@ -230,6 +354,11 @@
 
       .left-section button {
         width: 80%;
+      }
+
+      .chatbot-window {
+        width: 90vw;
+        height: 70vh;
       }
     }
   </style>
@@ -294,5 +423,105 @@
     </div>
   </div>
 
+  <div class="chatbot-container">
+    <button class="chatbot-toggle" onclick="toggleChatbot()">
+      <i class="fas fa-robot" style="font-size: 24px;"></i>
+    </button>
+    <div class="chatbot-window" id="chatbotWindow">
+      <div class="chatbot-header">
+        <img class="chatbot-avatar" src="ai.jpg" alt="AI Avatar" />
+        <h3>AI Assistant</h3>
+      </div>
+      <div class="chatbot-messages" id="chatbotMessages">
+        <div class="bot-message">Hello! I'm your AI assistant. Ask me about Elvis's portfolio, skills, teaching experience, or anything from his e-portfolio! I'll connect you to Elvis if I can't help.</div>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" id="chatbotInput" placeholder="Type your message..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleChatbot() {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatbotInput');
+      const messages = document.getElementById('chatbotMessages');
+      const messageText = input.value.trim();
+
+      if (messageText === '') return;
+
+      // Add user message
+      const userMessage = document.createElement('div');
+      userMessage.className = 'message user-message';
+      userMessage.textContent = messageText;
+      messages.appendChild(userMessage);
+
+      // Simulate bot response
+      const botMessage = document.createElement('div');
+      botMessage.className = 'message bot-message';
+      botMessage.textContent = getBotResponse(messageText);
+      messages.appendChild(botMessage);
+
+      // Clear input and scroll to bottom
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      if (lowerMessage.includes('about') || lowerMessage.includes('elvis') || lowerMessage.includes('bio')) {
+        return 'Elvis Kodie is a Web Developer and I.T Tutor. Learn more about his background and interests in the "About Me" section!';
+      } else if (lowerMessage.includes('cv') || lowerMessage.includes('curriculum vitae') || lowerMessage.includes('resume')) {
+        return 'Elvis’s CV details his skills in web development and IT education, including his internship at Abuakwa M/A J.H.S ‘B’. Check the "Curriculum Vitae" section for more!';
+      } else if (lowerMessage.includes('teaching philosophy') || lowerMessage.includes('philosophy')) {
+        return 'Elvis’s teaching philosophy focuses on inclusive, interactive, and student-centered learning. Explore the "Teaching Philosophy" section for details!';
+      } else if (lowerMessage.includes('reflective') || lowerMessage.includes('reflection') || lowerMessage.includes('practice')) {
+        return 'Elvis reflects on his teaching practices, including his internship experience. Visit the "Reflective Practice" section to learn more!';
+      } else if (lowerMessage.includes('internship') || lowerMessage.includes('record') || lowerMessage.includes('abuakwa')) {
+        return 'Elvis completed an internship at Abuakwa M/A J.H.S ‘B’, teaching Computing to B.S.7 students. See the "Internship Record Book" for his experiences!';
+      } else if (lowerMessage.includes('lesson') || lowerMessage.includes('notes')) {
+        return 'Elvis’s lesson notes cover topics like Internet and Social Media, taught using computers and projectors. Check the "Lesson Notes" section!';
+      } else if (lowerMessage.includes('pictures') || lowerMessage.includes('videos') || lowerMessage.includes('video')) {
+        return 'View images and videos from Elvis’s teaching, including social media demos, in the "Pictures & Videos" section!';
+      } else if (lowerMessage.includes('tlm') || lowerMessage.includes('teaching materials')) {
+        return 'Elvis uses teaching materials like computers, projectors, and textbooks. Explore the "TLM\'s" section for more!';
+      } else if (lowerMessage.includes('exercise') || lowerMessage.includes('test')) {
+        return 'Elvis’s exercises and tests assess student understanding in IT topics. See the "Exercise & Test" section for examples!';
+      } else if (lowerMessage.includes('examination') || lowerMessage.includes('marking scheme')) {
+        return 'Details on Elvis’s examination and marking schemes are available in the "Examination & Marking Scheme" section!';
+      } else if (lowerMessage.includes('skills') || lowerMessage.includes('skill')) {
+        return 'Elvis is skilled in web development and IT education, with hands-on teaching experience at Abuakwa M/A J.H.S ‘B’. Check the "Curriculum Vitae" for a full list!';
+      } else if (lowerMessage.includes('contact')) {
+        return 'Reach Elvis via email at kodielvis63@gmail.com, phone at +233550019465, or through his social media links (Facebook, Twitter, LinkedIn, Instagram)!';
+      } else if (lowerMessage.includes('portfolio')) {
+        return 'Elvis’s portfolio showcases his work as a Web Developer and I.T Tutor. Explore sections like Teaching Philosophy, CV, Lesson Notes, or Internship Record Book!';
+      } else {
+        return 'I’m sorry, I couldn’t find an answer to your question. Please contact Elvis directly for more details: email at kodielvis63@gmail.com, phone at +233550019465, or via his social media (Facebook, Twitter, LinkedIn, Instagram).';
+      }
+    }
+
+    // Allow sending message with Enter key
+    document.getElementById('chatbotInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // Close chatbot when clicking outside
+    document.addEventListener('click', function(event) {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      const chatbotToggle = document.querySelector('.chatbot-toggle');
+      const isClickInsideChatbot = chatbotWindow.contains(event.target) || chatbotToggle.contains(event.target);
+
+      if (!isClickInsideChatbot && chatbotWindow.style.display === 'flex') {
+        chatbotWindow.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
