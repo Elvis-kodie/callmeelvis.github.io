@@ -52,20 +52,25 @@
       background-color: #0059b3;
     }
 
-    .back-link {
-      display: block;
+    .button-container {
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .back-link, .close-link {
+      display: inline-block;
       background-color: #ccc;
       color: #004080;
       text-decoration: none;
       padding: 12px 25px;
       border-radius: 8px;
-      margin: 15px auto;
+      margin: 0 10px;
       font-weight: bold;
       text-align: center;
       width: fit-content;
     }
 
-    .back-link:hover {
+    .back-link:hover, .close-link:hover {
       background-color: #bbb;
     }
 
@@ -170,8 +175,11 @@
       <button class="next" onclick="changeSlide(1)">&#10095;</button>
     </div>
 
-    <!-- Back to Home button -->
-    <a href="index.html" class="back-link">← Back to Home</a>
+    <!-- Back to Home and Close buttons -->
+    <div class="button-container">
+      <a href="index.html" class="back-link">← Back to Home</a>
+      <a href="#" class="close-link" onclick="closeSlideshow()">Close Slideshow</a>
+    </div>
 
   </div>
 
@@ -187,6 +195,10 @@
     function showSlideshow() {
       slideshow.style.display = 'block';
       showSlide(currentSlide);
+    }
+
+    function closeSlideshow() {
+      slideshow.style.display = 'none';
     }
 
     function showSlide(index) {
