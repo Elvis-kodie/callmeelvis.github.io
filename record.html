@@ -32,6 +32,7 @@
     h2 {
       color: #004080;
       margin-top: 0;
+      text-align: center;
     }
 
     .file-link {
@@ -41,9 +42,10 @@
       text-decoration: none;
       padding: 15px 25px;
       border-radius: 8px;
-      margin-top: 20px;
+      margin: 20px auto;
       font-weight: bold;
       text-align: center;
+      width: fit-content;
     }
 
     .file-link:hover {
@@ -57,9 +59,10 @@
       text-decoration: none;
       padding: 12px 25px;
       border-radius: 8px;
-      margin-top: 15px;
+      margin: 15px auto;
       font-weight: bold;
       text-align: center;
+      width: fit-content;
     }
 
     .back-link:hover {
@@ -72,6 +75,47 @@
       font-size: 0.9rem;
       color: #666;
     }
+
+    .slideshow-container {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      display: none;
+      text-align: center;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: auto;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
   </style>
 </head>
 <body>
@@ -81,12 +125,44 @@
   </header>
 
   <div class="container">
-    <h2>Available Document</h2>
+    <h2>Internship Record Book Images</h2>
 
-    <!-- Link to your uploaded PDF -->
-    <a href="Record_Book.pdf" class="file-link" target="_blank">
-      View Internship Record (PDF)
-    </a>
+    <!-- Button to view slideshow -->
+    <button class="file-link" onclick="showSlideshow()">View Record Book Images</button>
+
+    <!-- Slideshow -->
+    <div class="slideshow-container" id="slideshow">
+      <img class="slide" src="Record_Book_page-0001.jpg" alt="Slide 1">
+      <img class="slide" src="Record_Book_page-0002.jpg" alt="Slide 2">
+      <img class="slide" src="Record_Book_page-0003.jpg" alt="Slide 3">
+      <img class="slide" src="Record_Book_page-0004.jpg" alt="Slide 4">
+      <img class="slide" src="Record_Book_page-0005.jpg" alt="Slide 5">
+      <img class="slide" src="Record_Book_page-0006.jpg" alt="Slide 6">
+      <img class="slide" src="Record_Book_page-0007.jpg" alt="Slide 7">
+      <img class="slide" src="Record_Book_page-0008.jpg" alt="Slide 8">
+      <img class="slide" src="Record_Book_page-0009.jpg" alt="Slide 9">
+      <img class="slide" src="Record_Book_page-0010.jpg" alt="Slide 10">
+      <img class="slide" src="Record_Book_page-0011.jpg" alt="Slide 11">
+      <img class="slide" src="Record_Book_page-0012.jpg" alt="Slide 12">
+      <img class="slide" src="Record_Book_page-0013.jpg" alt="Slide 13">
+      <img class="slide" src="Record_Book_page-0014.jpg" alt="Slide 14">
+      <img class="slide" src="Record_Book_page-0015.jpg" alt="Slide 15">
+      <img class="slide" src="Record_Book_page-0016.jpg" alt="Slide 16">
+      <img class="slide" src="Record_Book_page-0017.jpg" alt="Slide 17">
+      <img class="slide" src="Record_Book_page-0018.jpg" alt="Slide 18">
+      <img class="slide" src="Record_Book_page-0019.jpg" alt="Slide 19">
+      <img class="slide" src="Record_Book_page-0020.jpg" alt="Slide 20">
+      <img class="slide" src="Record_Book_page-0021.jpg" alt="Slide 21">
+      <img class="slide" src="Record_Book_page-0022.jpg" alt="Slide 22">
+      <img class="slide" src="Record_Book_page-0023.jpg" alt="Slide 23">
+      <img class="slide" src="Record_Book_page-0024.jpg" alt="Slide 24">
+      <img class="slide" src="Record_Book_page-0025.jpg" alt="Slide 25">
+      <img class="slide" src="Record_Book_page-0026.jpg" alt="Slide 26">
+      <img class="slide" src="Record_Book_page-0027.jpg" alt="Slide 27">
+      <img class="slide" src="Record_Book_page-0028.jpg" alt="Slide 28">
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
 
     <!-- Back to Home button -->
     <a href="index.html" class="back-link">← Back to Home</a>
@@ -96,6 +172,33 @@
   <footer>
     &copy; 2025 Internship Portal - Department of Information Technology Education
   </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideshow = document.getElementById('slideshow');
+
+    function showSlideshow() {
+      slideshow.style.display = 'block';
+      showSlide(currentSlide);
+    }
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+      } else if (currentSlide >= slides.length) {
+        currentSlide = 0;
+      }
+      showSlide(currentSlide);
+    }
+  </script>
 
 </body>
 </html>
