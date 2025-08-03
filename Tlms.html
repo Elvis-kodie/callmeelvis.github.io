@@ -3,91 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Internship Record Book</title>
+  <title>Teaching and Learning Materials</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e0e7ff, #f0f4ff);
-      color: #2e2e2e;
+      background-color: #f0f4f8;
+      color: #333;
       margin: 0;
       padding: 0;
     }
 
     header {
-      background: linear-gradient(to right, #1e3c72, #2a5298);
+      background-color: #004080;
       color: white;
-      padding: 50px 20px;
+      padding: 20px;
       text-align: center;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    header h1 {
-      font-size: 2.6rem;
-      letter-spacing: 1.5px;
-      margin: 0;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .container {
-      max-width: 960px;
-      margin: 60px auto;
-      background: #ffffff;
-      padding: 50px 40px;
-      border-radius: 20px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-      text-align: center;
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     }
 
     h2 {
-      color: #1e3c72;
-      font-size: 2rem;
-      margin-bottom: 35px;
+      color: #004080;
+      margin-top: 0;
+      text-align: center;
     }
 
     .file-link {
-      display: inline-block;
-      background: linear-gradient(to right, #3a7bd5, #00d2ff);
+      display: block;
+      background-color: #004080;
       color: white;
       text-decoration: none;
-      padding: 16px 35px;
-      border-radius: 60px;
-      font-size: 1.05rem;
+      padding: 15px 25px;
+      border-radius: 8px;
+      margin: 20px auto;
       font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 16px rgba(58, 123, 213, 0.3);
+      text-align: center;
+      width: fit-content;
     }
 
     .file-link:hover {
-      background: linear-gradient(to right, #2b5db6, #00aaff);
-      transform: scale(1.05);
+      background-color: #0059b3;
     }
 
-    .back-link {
+    .button-container {
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .back-link, .close-link {
       display: inline-block;
-      background-color: #e0e0e0;
-      color: #1e3c72;
+      background-color: #ccc;
+      color: #004080;
       text-decoration: none;
-      padding: 14px 30px;
-      border-radius: 60px;
-      margin-top: 30px;
+      padding: 12px 25px;
+      border-radius: 8px;
+      margin: 0 10px;
       font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      width: fit-content;
     }
 
-    .back-link:hover {
-      background-color: #cfd8dc;
-      transform: scale(1.04);
+    .back-link:hover, .close-link:hover {
+      background-color: #bbb;
     }
 
     footer {
       text-align: center;
-      padding: 30px 20px;
-      font-size: 0.95rem;
-      color: #555;
-      background-color: #f1f3f6;
-      border-top: 1px solid #ccc;
-      margin-top: 70px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .slideshow-container {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      display: none;
+      text-align: center;
+      background-color: rgba(0, 64, 128, 0.7);
+      padding: 20px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      animation: borderGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { border-color: #004080; box-shadow: 0 0 5px rgba(0, 64, 128, 0.5); }
+      50% { border-color: #00aaff; box-shadow: 0 0 15px rgba(0, 170, 255, 0.7); }
+      100% { border-color: #004080; box-shadow: 0 0 5px rgba(0, 64, 128, 0.5); }
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 1 / 1.414;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #ffffff, #f0f4f8);
+      padding: 10px;
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .slide-selector {
+      margin: 10px auto;
+      text-align: center;
+      display: none;
+    }
+
+    .slide-selector label {
+      color: #004080;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .slide-selector select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #004080;
+      background-color: #ffffff;
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slide-selector select:hover {
+      border-color: #0059b3;
+    }
+
+    .slide-selector select:focus {
+      outline: none;
+      border-color: #0059b3;
+      box-shadow: 0 0 5px rgba(0, 64, 128, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        max-width: 250px;
+      }
+
+      .slide-selector select {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+      }
     }
   </style>
 </head>
@@ -98,22 +190,95 @@
   </header>
 
   <div class="container">
-    <h2>Available Document</h2>
+    <h2>Teaching and Learning Materials Slideshow</h2>
 
-    <!-- Link to your uploaded PDF -->
-    <a href="TLMS.pdf" class="file-link" target="_blank">
-      View Teaching and Learning Materials (PDF)
-    </a>
+    <!-- Button to view slideshow -->
+    <button class="file-link" onclick="showSlideshow()">View Teaching and Learning Materials</button>
 
-    <!-- Back to Home button -->
-    <br><br>
-    <a href="TLMs.pdf" class="back-link">Back to Home</a>
+    <!-- Slideshow -->
+    <div class="slideshow-container" id="slideshow">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-3.jpg" alt="Slide 1">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-4.jpg" alt="Slide 2">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-5.jpg" alt="Slide 3">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-6.jpg" alt="Slide 4">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-7.jpg" alt="Slide 5">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-8.jpg" alt="Slide 6">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-9.jpg" alt="Slide 7">
+      <img class="slide" src="e0bba05c-fd92-4ce0-b231-a1464093da41-10.jpg" alt="Slide 8">
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <!-- Slide selector -->
+    <div class="slide-selector" id="slideSelector" style="display: none;">
+      <label for="slideNumber">Select Slide:</label>
+      <select id="slideNumber" onchange="jumpToSlide(this.value)">
+        <option value="0">Slide 1</option>
+        <option value="1">Slide 2</option>
+        <option value="2">Slide 3</option>
+        <option value="3">Slide 4</option>
+        <option value="4">Slide 5</option>
+        <option value="5">Slide 6</option>
+        <option value="6">Slide 7</option>
+        <option value="7">Slide 8</option>
+      </select>
+    </div>
+
+    <!-- Back to Home and Close buttons -->
+    <div class="button-container">
+      <a href="index.html" class="back-link">← Back to Home</a>
+      <a href="#" class="close-link" onclick="closeSlideshow()">Close Slideshow</a>
+    </div>
 
   </div>
 
   <footer>
     &copy; 2025 Internship Portal - Department of Information Technology Education
   </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideshow = document.getElementById('slideshow');
+    const slideSelector = document.getElementById('slideSelector');
+    const slideNumberSelect = document.getElementById('slideNumber');
+
+    function showSlideshow() {
+      slideshow.style.display = 'block';
+      slideSelector.style.display = 'block';
+      showSlide(currentSlide);
+      slideNumberSelect.value = currentSlide;
+    }
+
+    function closeSlideshow() {
+      slideshow.style.display = 'none';
+      slideSelector.style.display = 'none';
+    }
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      slideNumberSelect.value = index;
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+      } else if (currentSlide >= slides.length) {
+        currentSlide = 0;
+      }
+      showSlide(currentSlide);
+    }
+
+    function jumpToSlide(slideNumber) {
+      currentSlide = parseInt(slideNumber);
+      if (currentSlide >= 0 && currentSlide < slides.length) {
+        showSlide(currentSlide);
+      }
+    }
+  </script>
 
 </body>
 </html>
