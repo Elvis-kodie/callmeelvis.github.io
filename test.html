@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Internship Record Book</title>
+  <title>Exercise, Test and Assignment</title>
   <style>
     * {
       box-sizing: border-box;
@@ -48,7 +48,8 @@
     }
 
     .view-images-btn,
-    .back-link {
+    .back-link,
+    .next-link {
       display: inline-block;
       padding: 14px 30px;
       margin: 12px auto;
@@ -69,14 +70,16 @@
       background-color: #003f80;
     }
 
-    .back-link {
+    .back-link,
+    .next-link {
       background-color: #ffffff;
       color: #0059b3;
       border: 2px solid #0059b3;
       box-shadow: 0 4px 10px rgba(0, 89, 179, 0.2);
     }
 
-    .back-link:hover {
+    .back-link:hover,
+    .next-link:hover {
       background-color: #0059b3;
       color: white;
     }
@@ -167,7 +170,7 @@
         padding: 25px;
       }
 
-      .back-link, .view-images-btn {
+      .back-link, .view-images-btn, .next-link {
         width: 100%;
         margin-top: 20px;
       }
@@ -187,9 +190,11 @@
 
   <div class="container">
     <h2>Available Images</h2>
-    <button class="view-images-btn" onclick="openSlideshow()">View Images</button>
+    <button class="view-images-btn" onclick="openSlideshow()" aria-label="View Exercise, Test and Assignment Images">View Images</button>
     <br>
-    <a href="index.html" class="back-link">← Back to Home</a>
+    <a href="index.html" class="back-link" aria-label="Return to homepage">← Back to Home</a>
+    <a href="Tlms.html" class="back-link" aria-label="Return to previous page">← Back to Page</a>
+    <a href="scheme.html" class="next-link" aria-label="Go to summary page">Next Page →</a>
   </div>
 
   <!-- Fullscreen Slideshow Modal -->
@@ -208,9 +213,9 @@
     </div>
 
     <div class="navigation">
-      <button onclick="prevSlide()">Previous</button>
-      <button onclick="nextSlide()">Next</button>
-      <button class="close-btn" onclick="closeSlideshow()">Close</button>
+      <button onclick="prevSlide()" aria-label="Previous slide">Previous</button>
+      <button onclick="nextSlide()" aria-label="Next slide">Next</button>
+      <button class="close-btn" onclick="closeSlideshow()" aria-label="Close slideshow">Close</button>
     </div>
   </div>
 

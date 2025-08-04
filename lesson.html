@@ -63,11 +63,12 @@
     }
 
     .button-container {
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
       margin: 25px 0;
     }
 
-    .back-link, .close-link {
+    .back-link, .close-link, .next-link {
       display: inline-block;
       background-color: #38bdf8;
       color: #0f172a;
@@ -80,7 +81,7 @@
       box-shadow: 0 4px 10px rgba(56, 189, 248, 0.2);
     }
 
-    .back-link:hover, .close-link:hover {
+    .back-link:hover, .close-link:hover, .next-link:hover {
       background-color: #1a91c8;
       color: #ffffff;
       transform: translateY(-1px);
@@ -195,7 +196,7 @@
         font-size: 1.5rem;
       }
 
-      .file-link, .back-link, .close-link {
+      .file-link, .back-link, .close-link, .next-link {
         padding: 10px 20px;
         font-size: 0.9rem;
       }
@@ -308,10 +309,12 @@
       </select>
     </div>
 
-    <!-- Back to Home and Close buttons -->
+    <!-- Back to Home, Close, and Next buttons -->
     <div class="button-container">
       <a href="index.html" class="back-link" aria-label="Return to homepage">Back to Home</a>
+      <a href="record.html" class="back-link" aria-label="Return to previous page">Back to Page</a>
       <a href="#" class="close-link" onclick="closeSlideshow()" aria-label="Close Slideshow">Close Slideshow</a>
+      <a href="video.html" class="next-link" aria-label="Go to video page">Next Page &rarr;</a>
     </div>
 
   </div>

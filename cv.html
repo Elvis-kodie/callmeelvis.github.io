@@ -111,9 +111,14 @@
       line-height: 1.7;
     }
 
-    .back-link {
-      display: inline-block;
+    .button-row {
+      display: flex;
+      justify-content: space-between;
       margin-top: 40px;
+    }
+
+    .back-link, .next-link {
+      display: inline-block;
       background-color: #1e3a8a;
       color: white;
       text-decoration: none;
@@ -125,13 +130,13 @@
       transition: background-color 0.3s;
     }
 
-    .back-link:hover {
+    .back-link:hover, .next-link:hover {
       background-color: #122768;
       text-decoration: underline;
     }
 
     @media print {
-      .back-link, .inspire-btn, .side-nav {
+      .back-link, .next-link, .inspire-btn, .side-nav {
         display: none;
       }
     }
@@ -195,6 +200,12 @@
 
       .header-right img {
         margin: 0 auto;
+      }
+
+      .button-row {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
       }
     }
 
@@ -418,7 +429,11 @@
       <li><strong>Mr. Kumi</strong><br>Teacher, Abuakwa D/A Basic School<br>0240672415</li>
     </ul>
 
-    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <div class="button-row">
+      <a href="index.html" class="back-link">&larr; Back to Home</a>
+      <a href="reflective.html" class="back-link">&larr; Back to Page</a>
+      <a href="record.html" class="next-link">Next Page &rarr;</a>
+    </div>
   </div>
 
 </body>

@@ -57,7 +57,7 @@
       margin: 15px 0;
     }
 
-    .back-link, .close-link {
+    .back-link, .close-link, .next-link {
       display: inline-block;
       background-color: #ccc;
       color: #004080;
@@ -70,7 +70,7 @@
       width: fit-content;
     }
 
-    .back-link:hover, .close-link:hover {
+    .back-link:hover, .close-link:hover, .next-link:hover {
       background-color: #bbb;
     }
 
@@ -193,7 +193,7 @@
     <h2>Teaching and Learning Materials Slideshow</h2>
 
     <!-- Button to view slideshow -->
-    <button class="file-link" onclick="showSlideshow()">View Teaching and Learning Materials</button>
+    <button class="file-link" onclick="showSlideshow()" aria-label="View Teaching and Learning Materials">View Teaching and Learning Materials</button>
 
     <!-- Slideshow -->
     <div class="slideshow-container" id="slideshow">
@@ -230,10 +230,12 @@
       </select>
     </div>
 
-    <!-- Back to Home and Close buttons -->
+    <!-- Back to Home, Close, and Next buttons -->
     <div class="button-container">
-      <a href="index.html" class="back-link">← Back to Home</a>
-      <a href="#" class="close-link" onclick="closeSlideshow()">Close Slideshow</a>
+      <a href="index.html" class="back-link" aria-label="Return to homepage">← Back to Home</a>
+      <a href="video.html" class="back-link" aria-label="Return to previous page">← Back to Page</a>
+      <a href="#" class="close-link" onclick="closeSlideshow()" aria-label="Close Slideshow">Close Slideshow</a>
+      <a href="test.html" class="next-link" aria-label="Go to test page">Next Page →</a>
     </div>
 
   </div>

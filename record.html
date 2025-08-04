@@ -57,7 +57,7 @@
       margin: 15px 0;
     }
 
-    .back-link, .close-link {
+    .back-link, .close-link, .next-page-link {
       display: inline-block;
       background-color: #ccc;
       color: #004080;
@@ -70,7 +70,7 @@
       width: fit-content;
     }
 
-    .back-link:hover, .close-link:hover {
+    .back-link:hover, .close-link:hover, .next-page-link:hover {
       background-color: #bbb;
     }
 
@@ -256,10 +256,12 @@
       </select>
     </div>
 
-    <!-- Back to Home and Close buttons -->
+    <!-- Back to Home, Close, and Next Page buttons -->
     <div class="button-container">
-      <a href="index.html" class="back-link">← Back to Home</a>
+      <a href="lesson.html" class="back-link">← Back to Home</a>
+      <a href="cv.html" class="back-link">← Back to Page</a>
       <a href="#" class="close-link" onclick="closeSlideshow()">Close Slideshow</a>
+      <a href="lesson.html" class="next-page-link">Next Page →</a>
     </div>
 
   </div>

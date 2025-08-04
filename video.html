@@ -74,7 +74,7 @@
       margin: 15px 0;
     }
 
-    .back-link, .close-link {
+    .back-link, .close-link, .next-link {
       display: inline-block;
       background-color: #ccc;
       color: #004080;
@@ -87,7 +87,7 @@
       width: fit-content;
     }
 
-    .back-link:hover, .close-link:hover {
+    .back-link:hover, .close-link:hover, .next-link:hover {
       background-color: #bbb;
     }
 
@@ -209,7 +209,7 @@
   <div class="container">
     <h2>Available Resources</h2>
 
-    <button class="file-link" onclick="showSlideshow()">📷 View Activities Pictures</button>
+    <button class="file-link" onclick="showSlideshow()" aria-label="View Activities Pictures">📷 View Activities Pictures</button>
 
     <div class="slideshow-container" id="slideshow">
       <img class="slide" src="5d531dfb-6824-40f2-9b58-19c8d319dd76-0.jpg" alt="Activity Slide 1">
@@ -256,11 +256,13 @@
       </select>
     </div>
 
-    <a href="https://www.youtube.com/watch?v=your-video-id" class="video-link" target="_blank">🎥 Watch Teaching Video on YouTube</a>
+    <a href="https://www.youtube.com/watch?v=your-video-id" class="video-link" target="_blank" aria-label="Watch Teaching Video on YouTube">🎥 Watch Teaching Video on YouTube</a>
 
     <div class="button-container">
-      <a href="index.html" class="back-link">← Back to Home</a>
-      <a href="#" class="close-link" onclick="closeSlideshow()">Close Slideshow</a>
+      <a href="index.html" class="back-link" aria-label="Return to homepage">← Back to Home</a>
+      <a href="lesson.html" class="back-link" aria-label="Return to previous page">← Back to Page</a>
+      <a href="#" class="close-link" onclick="closeSlideshow()" aria-label="Close Slideshow">Close Slideshow</a>
+      <a href="Tlms.html" class="next-link" aria-label="Go to test page">Next Page →</a>
     </div>
 
   </div>
